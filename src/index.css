@@ -1,0 +1,124 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-tertiary-container: #ffaaa2;
+  --color-surface-container-lowest: #0b0e14;
+  --color-on-error-container: #ffdad6;
+  --color-error: #ffb4ab;
+  --color-inverse-surface: #e1e2eb;
+  --color-on-primary-fixed-variant: #004e60;
+  --color-on-tertiary-container: #a10012;
+  --color-inverse-primary: #00677f;
+  --color-on-tertiary: #680008;
+  --color-on-primary-fixed: #001f28;
+  --color-primary: #a4e6ff;
+  --color-on-background: #e1e2eb;
+  --color-on-surface: #e1e2eb;
+  --color-error-container: #93000a;
+  --color-surface-tint: #4cd6ff;
+  --color-surface-container: #1d2026;
+  --color-on-primary: #003543;
+  --color-on-tertiary-fixed-variant: #930010;
+  --color-primary-container: #00d1ff;
+  --color-secondary-fixed-dim: #ffba20;
+  --color-tertiary: #ffd1cd;
+  --color-surface-bright: #363940;
+  --color-surface-container-highest: #32353c;
+  --color-surface-dim: #10131a;
+  --color-on-tertiary-fixed: #410003;
+  --color-surface-container-low: #191c22;
+  --color-outline-variant: #3c494e;
+  --color-on-primary-container: #00566a;
+  --color-on-error: #690005;
+  --color-on-secondary-fixed-variant: #5e4200;
+  --color-secondary: #ffdb9d;
+  --color-tertiary-fixed-dim: #ffb3ac;
+  --color-background: #10131a;
+  --color-outline: #859399;
+  --color-surface: #10131a;
+  --color-on-surface-variant: #bbc9cf;
+  --color-on-secondary-container: #6b4b00;
+  --color-primary-fixed: #b7eaff;
+  --color-tertiary-fixed: #ffdad6;
+  --color-secondary-container: #feb700;
+  --color-surface-container-high: #272a31;
+  --color-inverse-on-surface: #2e3037;
+  --color-surface-variant: #32353c;
+  --color-primary-fixed-dim: #4cd6ff;
+  --color-secondary-fixed: #ffdea8;
+  --color-on-secondary-fixed: #271900;
+  --color-on-secondary: #412d00;
+  --color-accent: #9d4edd;
+  --color-accent-light: #e0aaff;
+  --color-accent-container: #3c096c;
+
+  @keyframes scan {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { opacity: 1; filter: drop-shadow(0 0 8px rgba(164, 230, 255, 0.8)); }
+    50% { opacity: .5; filter: drop-shadow(0 0 2px rgba(164, 230, 255, 0.3)); }
+  }
+  @keyframes pulse-rhythmic {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: .7; }
+  }
+  @keyframes noise {
+    0%, 100% { background-position: 0 0; }
+    10% { background-position: -5% -10%; }
+    20% { background-position: -15% 5%; }
+    30% { background-position: 7% -25%; }
+    40% { background-position: -5% 25%; }
+    50% { background-position: -15% 10%; }
+    60% { background-position: 15% 0%; }
+    70% { background-position: 0% 15%; }
+    80% { background-position: 3% 35%; }
+    90% { background-position: -10% 10%; }
+  }
+
+  --animate-scan: scan 4s linear infinite;
+  --animate-pulse-glow: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-pulse-rhythmic: pulse-rhythmic 1.5s ease-in-out infinite;
+  --animate-noise: noise 1s steps(2) infinite;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-on-background antialiased font-sans;
+  }
+}
+
+@layer components {
+  .glass-card {
+    background: rgba(25, 28, 34, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02), 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+
+  .text-glow-accent {
+    text-shadow: 0 0 10px var(--color-accent-light);
+  }
+
+  .bg-noise {
+    position: relative;
+    z-index: 0;
+  }
+
+  .bg-noise::before {
+    content: "";
+    @apply absolute inset-0 opacity-[0.03] pointer-events-none -z-10 animate-noise;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    background-size: 200px 200px;
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "MPI Sync Engine",
+  "description": "High-performance computing cluster monitoring dashboard for temporal consensus and drift analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
